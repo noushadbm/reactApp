@@ -9,9 +9,22 @@ const CourseListFilterd = ({ courses, onDeleteClick, onSearchChange }) => {
   const [currpage, setCurrpage] = useState(1);
 
   const handlePageClick = (event, idx)=> {
-    console.log('clicked page....', event.target, idx);
+    //console.log('clicked page....', event.target, idx);
     setCurrpage(idx);
     setBegIdx((idx - 1) * ITEMS_PER_PAGE);
+  }
+
+  const handleDeleteClick = (course) => {
+    console.log('---- course to delete:',course);
+    console.log('---- begin index:',courses[courses.length - 1]);
+    // If the deleted page is the only item in curr page
+    //    then change the page to prev page.
+    if(course.id === courses[begIdx].id && course.id === courses[courses.length - 1].id) {
+      const newPage = currpage - 1;
+      setCurrpage(newPage);
+      setBegIdx((newPage - 1) * ITEMS_PER_PAGE);
+    }
+    onDeleteClick(course);
   }
 
   return (
@@ -36,7 +49,7 @@ const CourseListFilterd = ({ courses, onDeleteClick, onSearchChange }) => {
         <tbody>
           {courses.filter(
             (course, idx) => {
-              console.log('>>>>', course.title, idx, begIdx);
+              //console.log('>>>>', course.title, idx, begIdx);
               if(idx >= begIdx && idx < begIdx + ITEMS_PER_PAGE){
                 return true;
               }
@@ -62,7 +75,7 @@ const CourseListFilterd = ({ courses, onDeleteClick, onSearchChange }) => {
                 <td>
                   <button
                     className="btn btn-outline-danger"
-                    onClick={() => onDeleteClick(course)}>
+                    onClick={() => handleDeleteClick(course)}>
                     Delete
                 </button>
                 </td>
