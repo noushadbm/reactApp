@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "../common/TextInput";
 import SelectInput from "../common/SelectInput";
@@ -12,14 +12,6 @@ const CourseForm = ({
   errors = {},
   history
 }) => {
-  console.log('------', history);
-  useEffect(() => {
-    return () => {
-      console.log('Re-render or unmount...');
-      return false;
-    }
-  });
-
   return (
     <form onSubmit={onSave}>
       <h2>{course.id ? "Edit" : "Add"} Course</h2>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Paginator from "./Paginator";
 
 const CourseListFilterd = ({ courses, onDeleteClick, onSearchChange }) => {
+  //console.log('-----begin CourseListFilterd page.');
   const ITEMS_PER_PAGE = 5;
   const [begIdx, setBegIdx] = useState(0);
   const [currpage, setCurrpage] = useState(1);
@@ -15,8 +16,6 @@ const CourseListFilterd = ({ courses, onDeleteClick, onSearchChange }) => {
   }
 
   const handleDeleteClick = (course) => {
-    console.log('---- course to delete:',course);
-    console.log('---- begin index:',courses[courses.length - 1]);
     // If the deleted page is the only item in curr page
     //    then change the page to prev page.
     if(course.id === courses[begIdx].id && course.id === courses[courses.length - 1].id) {
@@ -27,12 +26,18 @@ const CourseListFilterd = ({ courses, onDeleteClick, onSearchChange }) => {
     onDeleteClick(course);
   }
 
+  const handleSearchChange = (event) => {
+    setBegIdx(0);
+    setCurrpage(1);
+    onSearchChange(event);
+  }
+
   return (
     <>
       <div className="filter-list">
         <form>
           <fieldset className="form-group">
-            <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={onSearchChange} />
+            <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={handleSearchChange} />
           </fieldset>
         </form>
       </div>
