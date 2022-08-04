@@ -10,7 +10,7 @@
     "test:ci": "jest",
     "clean:build": "rimraf ./build && mkdir build",
     "prebuild": "run-p clean:build",
-    "build": "webpack --config webpack.config.prod.js"
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && webpack --config webpack.config.prod.js"
   },
   "jest": {
     "setupFiles": [
